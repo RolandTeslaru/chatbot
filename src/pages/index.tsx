@@ -11,11 +11,15 @@ import {MdKeyboardDoubleArrowRight} from 'react-icons/md'
 import Arrow from '@/components/Arrow'
 import { motion } from 'framer-motion'
 import { codeDump } from "@/components/codeDump";
+import { NextApiRequest, NextApiResponse } from 'next'
 
 interface ChatData {
   message: string;
   type: string;
 }
+
+
+
 
 export default function Home() {
   const {systemTheme, theme, setTheme} = useTheme();
@@ -141,7 +145,7 @@ export default function Home() {
                 transition={{ delay: 0.5 }}
                 className={s.text}
               >
-                A project created by Roland Teslaru using the OpenAI API
+                A project created by Teslaru Roland using the OpenAI API
               </motion.h4>
               <motion.h4
                 initial={{ opacity: 0, y: -20 }}
@@ -149,7 +153,7 @@ export default function Home() {
                 transition={{ delay: 0.7 }}
                 className={s.text}
               >
-                A project created by Roland Teslaru using the OpenAI API
+                A project created by Teslaru Roland using the OpenAI API
               </motion.h4>
             </div>
 
@@ -183,7 +187,7 @@ export default function Home() {
                   className={s.more}
                 >
                   <ThemeButton className={s.button} />
-                  <a href="">View Source</a>
+                  <a target="_blank" href="https://github.com/RolandTeslaru/chatbot">View Source</a>
                 </motion.div>
               </motion.div>
 
@@ -250,7 +254,7 @@ export default function Home() {
                 transition={{ delay: 0.9 }}
                 className={s.text}
               >
-                A project created by Roland Teslaru using the OpenAI API
+                A project created by Teslaru Roland using the OpenAI API
               </motion.h4>
               <motion.h4
                 initial={{ opacity: 0, y: -20 }}
@@ -258,7 +262,7 @@ export default function Home() {
                 transition={{ delay: 1.1 }}
                 className={s.text}
               >
-                A project created by Roland Teslaru using the OpenAI API
+                A project created by Teslaru Roland using the OpenAI API
               </motion.h4>
             </div>
           </>
@@ -267,3 +271,4 @@ export default function Home() {
     </>
   );
 }
+
