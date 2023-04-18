@@ -96,7 +96,6 @@ export default function Home() {
     setIsLoading(true);
 
     axios.post(url, data, {headers: headers}).then((response) => {
-      console.log(response.data);
       //@ts-expect-error
       setChatLog((prevChatLog) => [...prevChatLog, {type: 'bot', message:response.data.choices[0].message.content}]);
       setIsLoading(false);

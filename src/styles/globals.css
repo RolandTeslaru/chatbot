@@ -41,8 +41,9 @@
 }
 
 @font-face {
-  font-family: "helvetica-neue-bold ";
-  src: url("/fonts/helvetica-neue-bold.woff2") format("woff2"),
+  font-family: "helvetica-neue-bold";
+  src: url("../../public/fonts/helvetica-neue-bold.woff2") format("woff2"),
+       url("/fonts/helvetica-neue-bold.woff") format("woff");
 }
 
 @media (prefers-color-scheme: dark) {
