@@ -10,162 +10,31 @@ import ThemeButton from '@/components/ThemeButton'
 import {MdKeyboardDoubleArrowRight} from 'react-icons/md'
 import Arrow from '@/components/Arrow'
 import { motion } from 'framer-motion'
+import { codeDump } from "@/components/codeDump";
 
-const inter = Inter({ subsets: ['latin'] })
-
-
-const errorMsg: string = ` 1 of 2 unhandled errors
-Unhandled Runtime Error
-
-ReferenceError: PRESEhjilhjTS is not defined
-Source
-
-components\ThreeComponents\Lines\Lines.ts (186:6) @ setPreset
-
-  184 | this.MAX_SPEED = PRESETS[val].MAX_SPEED;
-  185 | this.frequency = PRESETS[val].frequency;
-> 186 | this.position.x = PRESEhjilhjTS[val].position.x;
-      |      ^
-  187 | this.position.y = PRESETS[val].position.y;
-  188 | this.position.z = PRESETS[val].position.z;
-  189 | this.PRESET = val
-
-Call Stack
-init404
-components\ThreeJS\Scene.ts (295:16)
-<unknown>
-components\ThreeJS\Scene.ts (323:2)
-./components/ThreeJS/Scene.ts
-file:/C:/Users/Roland/Desktop/roland-teslaru-portfolio/.next/static/chunks/pages/_app.js (6208:1)
-options.factory
-/_next/static/chunks/webpack.js (683:31)
-__webpack_require__
-file:/C:/Users/Roland/Desktop/roland-teslaru-portfolio/.next/static/chunks/webpack.js (37:33)
-fn
-/_next/static/chunks/webpack.js (338:21)
-Layout/<
-components\Layout\Layout.tsx (27:41)
-commitHookEffectListMount
-node_modules\react-dom\cjs\react-dom.development.js (23150:0)
-commitPassiveMountOnFiber
-node_modules\react-dom\cjs\react-dom.development.js (24926:0)
-commitPassiveMountEffects_complete
-node_modules\react-dom\cjs\react-dom.development.js (24891:0)
-commitPassiveMountEffects_begin
-node_modules\react-dom\cjs\react-dom.development.js (24878:0)
-commitPassiveMountEffects
-node_modules\react-dom\cjs\react-dom.development.js (24866:0)
-flushPassiveEffectsImpl
-node_modules\react-dom\cjs\react-dom.development.js (27039:0)
-flushPassiveEffects
-node_modules\react-dom\cjs\react-dom.development.js (26984:0)
-commitRootImpl/<
-node_modules\react-dom\cjs\react-dom.development.js (26769:0)
-
-components\ThreeComponents\Lines\Lines.ts (186:6) @ setPreset
-
-  184 | this.MAX_SPEED = PRESETS[val].MAX_SPEED;
-  185 | this.frequency = PRESETS[val].frequency;
-> 186 | this.position.x = PRESEhjilhjTS[val].position.x;
-      |      ^
-  187 | this.position.y = PRESETS[val].position.y;
-  188 | this.position.z = PRESETS[val].position.z;
-  189 | this.PRESET = val
-
-Call Stack
-init404
-components\ThreeJS\Scene.ts (295:16)
-<unknown>
-components\ThreeJS\Scene.ts (323:2)
-./components/ThreeJS/Scene.ts
-file:/C:/Users/Roland/Desktop/roland-teslaru-portfolio/.next/static/chunks/pages/_app.js (6208:1)
-options.factory
-/_next/static/chunks/webpack.js (683:31)
-__webpack_require__
-file:/C:/Users/Roland/Desktop/roland-teslaru-portfolio/.next/static/chunks/webpack.js (37:33)
-fn
-/_next/static/chunks/webpack.js (338:21)
-Layout/<
-1 of 1 unhandled error
-Unhandled Runtime Error
-
-TypeError: can't convert undefined to object
-Source
-
-components\ThreeComponents\ParticleModel.ts (297:28) @ processMesh
-
-  295 |     (i + j) * 3
-  296 |   );
-> 297 |   particlesRandomness.set(undefined);
-      |                      ^
-  298 |   this.uRandom = i + j;
-  299 |   sizes[i + j] = 1.1;
-  300 | }
-
-Call Stack
-loadModel/<
-components\ThreeComponents\ParticleModel.ts (326:32)
-loadModel
-components\ThreeComponents\ParticleModel.ts (321:11)
-initPoints
-components\ThreeComponents\ParticleModel.ts (338:10)
-ParticleModel
-components\ThreeComponents\ParticleModel.ts (258:9)
-1 of 1 unhandled error
-Unhandled Runtime Error
-
-ReferenceError: null is not defined
-Source
-
-components\ThreeComponents\ParticleModel.ts (273:20) @ processMesh
-  267 |async #processMesh(modelMesh: THREE.Mesh){
-  268 |    let sizes:number[] =  [];
-  269 |    let exn = 0.2;
-  270 |    let points: THREE.Points;
-  271 |    let points: THREE.Points;
-  272 | 
-> 273 |    const sampler = new MeshSurfaceSampler(modelMesh).setWeightAttribute(null).build();
-      |                    ^
-  274 |    let n = new THREE.Vector3();
-  275 | 
-  276 |    const particlesPostions = new Float32Array(this.pointsNumber * 3);
-
-Call Stack
-loadModel/<
-components\ThreeComponents\ParticleModel.ts (325:32)
-loadModel
-components\ThreeComponents\ParticleModel.ts (320:11)
-initPoints
-components\ThreeComponents\ParticleModel.ts (337:10)
-./components/ThreeJS/Scene.ts
-file:/C:/Users/Roland/Desktop/roland-teslaru-portfolio/.next/static/chunks/pages/_app.js (6208:1)
-options.factory
-/_next/static/chunks/webpack.js (683:31)
-__webpack_require__
-file:/C:/Users/Roland/Desktop/roland-teslaru-portfolio/.next/static/chunks/webpack.js (37:33)
-
-`;
-
-const testChatLog = [
- 
-
-]
+interface ChatData {
+  message: string;
+  type: string;
+}
 
 export default function Home() {
-
-  const [inputValue, setInputValue] = useState('');
   const {systemTheme, theme, setTheme} = useTheme();
+
+  // OpenAI States
+  const [inputValue, setInputValue] = useState('');
   const [chatLog, setChatLog] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
 
 
-
+  // Background code animation
   const [codeChunk, setCodeChunk] = useState<string>("");
   const [hide, setHide] = useState<boolean>(false);
 
   useEffect(() => {
-    const errorMsgChunks = errorMsg.split(/\r\n|\r|\n/);
+
+
+    const errorMsgChunks = codeDump.split(/\r\n|\r|\n/);
     const textDivisor = 20;
     const chunkSize = Math.ceil(errorMsgChunks.length / textDivisor);
 
@@ -192,6 +61,8 @@ export default function Home() {
       setCodeChunk(chunkedText[currentState]);
     }, intervalTime);
   }, []);
+
+  // OpenAI Logic
 
   const handleSubmit = (event:any) => {
     event.preventDefault();
@@ -234,7 +105,9 @@ export default function Home() {
   }
 
 
-  function autoAdjust(textarea:HTMLTextAreaElement) {
+  // TextArea Auto Resize
+
+  function autoAdjust(textarea:any) {
     textarea.style.height = "auto";
     
     var maxHeight = textarea.scrollHeight + (textarea.offsetHeight - textarea.clientHeight) * 4;
@@ -248,6 +121,8 @@ export default function Home() {
       textarea.style.overflowY = "hidden";
     }
   }
+
+
   return (
     <>
       <div className={`${s.main} ${theme === "light" ? s.light : s.dark}`}>
@@ -291,16 +166,16 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: 1.0, ease: "linear", duration: 0.2 }}
                   className={s.arrow}
+                  theme={theme}
                 />
                 <motion.h1
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.2, ease: "linear", duration: 0.2 }}
                 >
-                  "ChatBot"
+                  &quot;ChatBot&quot;
                 </motion.h1>
-                {/* <div className={s.center}>
-                </div> */}
+
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -316,14 +191,14 @@ export default function Home() {
                 initial={{ opacity: 0}}
                 animate={{ opacity: 1}}
                 className={s.chat}>
-                {chatLog.map((chat, index) => {
+                {chatLog.map((chat: ChatData, index) => {
                   if (chat.type === "user")
                     return (
                       <motion.div 
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         className={`${s.message} ${s.user}`} key={index}>
-                        <h4 className={s.type}>"{chat.type}"</h4>
+                        <h4 className={s.type}>&quot;{chat.type}&quot;</h4>
                         <p>{chat.message}</p>
                       </motion.div>
                     );
@@ -333,7 +208,7 @@ export default function Home() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         className={`${s.message} ${s.bot}`} key={index}>
-                        <h4 className={s.type}>"{chat.type}"</h4>
+                        <h4 className={s.type}>&quot;{chat.type}&quot;</h4>
                         <p>{chat.message}</p>
                       </motion.div>
                     );

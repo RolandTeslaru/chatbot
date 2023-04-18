@@ -14,6 +14,7 @@ const ThemeButton:FC<Props> = (props) => {
     <button 
         onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
         className={props.className ? props.className : ' btn'}
+        style={{backgroundColor: currentTheme === 'dark' ? '#000000' : '#ffffff', color: currentTheme === 'dark' ? '#ffffff' : '#000000'}}
     >
         Change Theme
     </button>
