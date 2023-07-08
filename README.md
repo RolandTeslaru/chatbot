@@ -1,4 +1,4 @@
-A chatBot interface created using React and Nextjs that connect to the openAI gpt API.
+A chatBot interface created using React and Nextjs that connects to the openAI gpt API.
 
 <img width="1675" alt="Screenshot 2023-04-19 at 14 27 56" src="https://user-images.githubusercontent.com/89258659/235297506-b13fe345-7120-40a6-b960-1a1f7313fa19.png">
 
